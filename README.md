@@ -1,2 +1,2 @@
 # ExerciciosDaGen
-Aqui terá apenas os exercícios relacionados a Generation!
+Aqui terá apenas os exercícios de java relacionados a Generation!
