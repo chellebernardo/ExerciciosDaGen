@@ -16,7 +16,7 @@ public class Vetores {
 		
 		somaB = somaB + array[0]+array[1]+array[5];
 		
-		System.out.print("\nO valor da soma dos número na posição 0, 1 e 5 é: "+somaB+"\n\n");
+		System.out.print("\nO valor da soma dos números na posição 0, 1 e 5 é: "+somaB+"\n\n");
 		
 		array [4] = 100;
 		
