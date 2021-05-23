@@ -50,27 +50,42 @@ VALUES
 ("Adafine", "Femino", "Yerkir", 6500, 3000, 6);
 
 -- poder de ataque maior que 2000
-SELECT nome AS Personagem, fk_classe AS Classe, poder_atk AS ATK, poder_def AS DEF
+SELECT tb_personagem.nome AS Personagem, tb_classe.nome AS Classe, poder_atk AS ATK, poder_def AS DEF
 FROM tb_personagem
+INNER JOIN tb_classe
+ON tb_personagem.fk_classe = tb_classe.id_classe
 WHERE poder_atk > 2000
 ORDER BY poder_atk DESC;
 
--- poder de defesa entre 1000 e 2000
-SELECT nome AS Personagem, fk_classe AS Classe, poder_atk AS ATK, poder_def AS DEF
+-- Para saber os personagens com poder de defesa entre 1000 e 2000
+SELECT tb_personagem.nome AS Personagem, tb_classe.nome AS Classe, poder_atk AS ATK, poder_def AS DEF
 FROM tb_personagem
+INNER JOIN tb_classe
+ON tb_personagem.fk_classe = tb_classe.id_classe
 WHERE poder_def BETWEEN 1000 AND 2000
 ORDER BY poder_def DESC;
 
 -- select de LIKE para personagens com a letra C
-SELECT * 
+SELECT nome AS Nome
 FROM tb_personagem
 WHERE nome LIKE '%c%';
 
-SELECT tb_classe.nome AS Classe
+-- INNER JOIN para saber a quantidade de personagens que existem com a mesma classe
+SELECT tb_classe.nome AS Classe, count(*) AS Quantidade
 FROM tb_personagem
 INNER JOIN tb_classe
 ON tb_personagem.fk_classe = tb_classe.id_classe
+GROUP BY tb_classe.nome
 ORDER BY tb_classe.nome ASC;
 
-SELECT * FROM tb_personagem
+-- para informar todos os personagens de uma classe específica
+SELECT id_personagem AS ID, nome AS Nick, sexo AS Genero, clan AS Clan, poder_atk AS ATK, poder_def AS DEF
+FROM tb_personagem
 WHERE fk_classe = 6;
+
+-- para saber o nome de todos os Personagens criados, suas respectivas classes e habilidades
+SELECT tb_personagem.nome AS Personagem, tb_classe.nome AS Classe, tb_classe.habilidade AS Skills
+FROM tb_personagem
+INNER JOIN tb_classe
+ON tb_personagem.fk_classe = tb_classe.id_classe
+ORDER BY tb_personagem.nome ASC;
