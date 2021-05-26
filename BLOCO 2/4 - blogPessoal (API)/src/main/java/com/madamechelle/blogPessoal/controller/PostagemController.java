@@ -32,7 +32,7 @@ public class PostagemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> GetById(@PathVariable long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
-	}
+	}	
 
 	// Para obter as postagens por título
 	@GetMapping("/titulo/{titulo}")
