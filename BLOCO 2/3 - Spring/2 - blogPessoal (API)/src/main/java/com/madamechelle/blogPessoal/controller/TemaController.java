@@ -2,6 +2,8 @@ package com.madamechelle.blogPessoal.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.madamechelle.blogPessoal.model.Tema;
 import com.madamechelle.blogPessoal.repository.TemaRepository;
+import com.madamechelle.blogPessoal.service.UsuarioServices;
 
 @RestController
 @RequestMapping ("/tema")
@@ -24,6 +27,8 @@ public class TemaController {
 	
 	@Autowired
 	private TemaRepository repository;
+	@Autowired
+	private UsuarioServices services;
 	
 	@GetMapping
 	public ResponseEntity<List<Tema>> getAll(){
@@ -31,8 +36,8 @@ public class TemaController {
 	}
 	
 	@GetMapping ("/{id}")
-	public ResponseEntity<Tema> getById (@PathVariable long id){
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
+	public ResponseEntity<Tema> getById (@PathVariable long idTema){
+		return repository.findById(idTema).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
@@ -42,17 +47,23 @@ public class TemaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Tema> post (@RequestBody Tema tema){
-		return ResponseEntity.status(201).body(repository.save(tema));
+	public ResponseEntity<Tema> cadastrarTema (@PathVariable  (value = "id_tema") Long idTema,
+			@Valid @RequestBody Tema novoTema) {
+		return services.cadastrarTema(idTema, novoTema)
+				.map(newTema -> ResponseEntity.status(201).body(newTema))
+				.orElse(ResponseEntity.status(304).build());
 	}
 	
 	@PutMapping
-	public ResponseEntity<Tema> put (@RequestBody Tema tema){
-		return ResponseEntity.status(200).body(repository.save(tema));
+	public ResponseEntity<Tema> atualizarTema (@PathVariable  (value = "id_tema") Long idTema,
+			@Valid @RequestBody Tema atualizacaoTema) {
+		return services.atualizarTema(idTema, atualizacaoTema)
+				.map(attTema -> ResponseEntity.status(201).body(attTema))
+				.orElse(ResponseEntity.status(304).build());
 	}
 	
 	@DeleteMapping ("/{id}")
-	public void delete (@PathVariable long id) {
-		repository.deleteById(id);
+	public void delete (@PathVariable long idTema) {
+		repository.deleteById(idTema);
 	}
 }

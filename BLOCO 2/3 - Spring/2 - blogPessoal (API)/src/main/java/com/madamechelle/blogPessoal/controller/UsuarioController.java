@@ -1,8 +1,6 @@
 package com.madamechelle.blogPessoal.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.madamechelle.blogPessoal.model.Postagem;
 import com.madamechelle.blogPessoal.model.Usuario;
 import com.madamechelle.blogPessoal.repository.UsuarioRepository;
 import com.madamechelle.blogPessoal.service.UsuarioServices;
@@ -70,21 +67,4 @@ public class UsuarioController {
 				.map(usuarioAtualizado -> ResponseEntity.status(201).body(usuarioAtualizado))
 				.orElse(ResponseEntity.status(304).build());
 	}
-	
-	/*@PostMapping ("/{id_usuario}/novo/post")
-	public ResponseEntity<Postagem> novoPost (@PathVariable (value = "id_usuario") Long idUsuario, 
-			@Valid @RequestBody Postagem novoPost){
-		return services.criarPost(idUsuario, novoPost)
-				.map(postCriado -> ResponseEntity.status(201).body(postCriado))
-				.orElse(ResponseEntity.status(400).build());
-	}
-	
-	@PutMapping ("/{id_usuario}/atualizar/post")
-	public ResponseEntity<Postagem> atualizarPost (@PathVariable (value = "id_usuario") Long idUsuario, 
-			@Valid @RequestBody Postagem novoPost){
-		return services.criarPost(idUsuario, novoPost)
-				.map(postCriado -> ResponseEntity.status(201).body(postCriado))
-				.orElse(ResponseEntity.status(400).build());
-	}*/	
-
 }
