@@ -1,59 +1,99 @@
 package com.madamechelle.blogPessoal.model;
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table (name = "postagem")
+@Table(name = "postagem")
 public class Postagem {
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@NotNull
 	@Size (min = 5, max = 100)
 	private String titulo;
-	
+
 	@NotNull
-	@Size (min = 10, max = 500)
+	/*@Size(min = 10, max = 500)*/
+	@Column(name = "CONTENT", length = 1000)
+	// anotação para aumentar o tamanho do texto no corpo da postagem no MySQL
 	private String texto;
-	
-	@Temporal (TemporalType.TIMESTAMP)
+
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 	
+	@ManyToOne
+	@JsonIgnoreProperties ("postagem")
+	private Tema tema;
 	
+	@ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@JoinColumn (name = "usuario_id")
+	private Usuario criador;
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getTitulo() {
 		return titulo;
 	}
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
 	public String getTexto() {
 		return texto;
 	}
+
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+
 	public Date getDate() {
 		return date;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+
+	public Usuario getCriador() {
+		return criador;
+	}
+
+	public void setCriador(Usuario criador) {
+		this.criador = criador;
 	}
 	
 }
