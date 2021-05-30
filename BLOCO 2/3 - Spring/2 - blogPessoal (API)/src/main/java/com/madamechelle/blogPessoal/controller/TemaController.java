@@ -30,40 +30,38 @@ public class TemaController {
 	@Autowired
 	private UsuarioServices services;
 	
-	@GetMapping
-	public ResponseEntity<List<Tema>> getAll(){
+	@GetMapping ("/todes")
+	public ResponseEntity<List<Tema>> buscarTodes (){
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping ("/{id}")
-	public ResponseEntity<Tema> getById (@PathVariable long idTema){
-		return repository.findById(idTema).map(resp -> ResponseEntity.ok(resp))
+	public ResponseEntity<Tema> buscarPorId (@PathVariable Long id){
+		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping ("/nome/{nome}")
-	public ResponseEntity<List<Tema>> getByNome (@PathVariable String nome) {
+	public ResponseEntity<List<Tema>> buscarPorNome (@PathVariable String nome) {
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(nome));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Tema> cadastrarTema (@PathVariable  (value = "id_tema") Long idTema,
-			@Valid @RequestBody Tema novoTema) {
-		return services.cadastrarTema(idTema, novoTema)
-				.map(newTema -> ResponseEntity.status(201).body(newTema))
-				.orElse(ResponseEntity.status(304).build());
+	@PostMapping ("/novo")
+	public ResponseEntity<Tema> cadastrarTema (@RequestBody Tema novoTema) {
+		return ResponseEntity.status(201).body(novoTema);
 	}
+				
 	
-	@PutMapping
-	public ResponseEntity<Tema> atualizarTema (@PathVariable  (value = "id_tema") Long idTema,
+	@PutMapping ("/atualizar/{id_tema}")
+	public ResponseEntity<Tema> atualizarTema (@PathVariable  (value = "id_tema") Long id,
 			@Valid @RequestBody Tema atualizacaoTema) {
-		return services.atualizarTema(idTema, atualizacaoTema)
+		return services.atualizarTema(id, atualizacaoTema)
 				.map(attTema -> ResponseEntity.status(201).body(attTema))
 				.orElse(ResponseEntity.status(304).build());
 	}
 	
-	@DeleteMapping ("/{id}")
-	public void delete (@PathVariable long idTema) {
-		repository.deleteById(idTema);
+	@DeleteMapping ("/deletar/{id_tema}")
+	public void delete (@PathVariable Long id) {
+		repository.deleteById(id);
 	}
 }

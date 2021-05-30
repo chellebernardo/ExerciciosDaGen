@@ -32,21 +32,20 @@ public class UsuarioServices {
 	 * @return Optional com entidade Usuario dentro ou Optional vazio.
 	 */
 
-	public Optional<Usuario> cadastrarUsuario(Usuario novoUsuario) {
-		Optional<Usuario> usuarioExistente = repository.findByUsuario(novoUsuario.getUsuario());
+	public Optional<Object> cadastrarUsuario(Usuario novoUsuario) {
+		Optional<Object> usuarioExistente = repository.findByUsuarioIgnoreCase(novoUsuario.getUsuario());
 
 		if (usuarioExistente.isPresent()) {
 			return Optional.empty();
 		} else {
 			return Optional.ofNullable(repository.save(novoUsuario));
 		}
-
 	}
 
 	/**
 	 * Método utilizado para atualizar os campos de nome e senha do Usuario
 	 * 
-	 * @param idUsuario          - LongidUsuario
+	 * @param id - Long
 	 * @param atualizacaoUsuario - representando a Entidade Usuario
 	 * @since 1.0
 	 * @author Chelle
@@ -54,8 +53,8 @@ public class UsuarioServices {
 	 *         contrário um Optional vazio
 	 */
 
-	public Optional<Usuario> atualizarUsuario(Long idUsuario, Usuario atualizacaoUsuario) {
-		Optional<Usuario> usuarioExistente = repository.findById(idUsuario);
+	public Optional<Usuario> atualizarUsuario(Long id, Usuario atualizacaoUsuario) {
+		Optional<Usuario> usuarioExistente = repository.findById(id);
 
 		if (usuarioExistente.isPresent()) {
 			usuarioExistente.get().setNome(atualizacaoUsuario.getNome());
@@ -68,15 +67,15 @@ public class UsuarioServices {
 
 	/**
 	 * Método utilizado para atualizar Título e Texto de postagens existentes.
-	 * @param idPostagem - Long
+	 * @param  id - Long
 	 * @param atualizacaoPost - representando Entidade Postagem
 	 * @since 1.0
 	 * @author Chelle
 	 * @return Retorna um Optional com entidade Postagem caso exista,
 	 * se não existir retorna um Optional vazio.
 	 */
-	public Optional <Postagem> atualizarPost (Long idPostagem, Postagem atualizacaoPost){
-		Optional <Postagem> postExistente = repositoryP.findPostById(idPostagem);
+	public Optional <Postagem> atualizarPost (Long id, Postagem atualizacaoPost){
+		Optional <Postagem> postExistente = repositoryP.findById(id);
 		
 		if (postExistente.isPresent()) {
 			postExistente.get().setTitulo(atualizacaoPost.getTitulo());
@@ -86,37 +85,19 @@ public class UsuarioServices {
 			return Optional.empty();
 		}
 	}
-	/**
-	 * Método utilizado para cadastrar um novo Tema caso o mesmo ainda não exista.
-	 * @param idTema - Long
-	 * @param novoTema - representando a Entidade Tema.
-	 * @since 1.0
-	 * @author Chelle
-	 * @return Retorna um Optional vazio se o Tema existir. Se não o Tema ainda não
-	 * existir, retorna um Optional que permite o novo cadastro.
-	 */
-	public Optional<Tema> cadastrarTema (Long idTema, Tema novoTema) {
-		Optional <Tema> temaExistente = repositoryT.findByDescricao(novoTema.getDescricao());
-		
-		if (temaExistente.isPresent()) {
-			return Optional.empty();
-		} else {
-			return Optional.ofNullable(repositoryT.save(novoTema));
-		}
-	}
-
+	
 	/**
 	 * Método utilizado para atualizar um Tema existente no Banco de Dados.
 	 * 
-	 * @param idTema          - Long
+	 * @param id          - Long
 	 * @param atualizacaoTema - respresentando a Entidade Tema.
 	 * @since 1.0
 	 * @author Chelle
 	 * @return Retorna um Optional com a entidade Tema se ela existir, se não
 	 *         existir retorna um Optional vazio.
 	 */
-	public Optional<Tema> atualizarTema(Long idTema, Tema atualizacaoTema) {
-		Optional<Tema> temaExistente = repositoryT.findByTemaId(idTema);
+	public Optional<Tema> atualizarTema(Long id, Tema atualizacaoTema) {
+		Optional<Tema> temaExistente = repositoryT.findById(id);
 
 		if (temaExistente.isPresent()) {
 			temaExistente.get().setDescricao(atualizacaoTema.getDescricao());

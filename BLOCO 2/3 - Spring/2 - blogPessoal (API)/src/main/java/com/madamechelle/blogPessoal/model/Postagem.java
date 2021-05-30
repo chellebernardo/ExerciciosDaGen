@@ -20,12 +20,12 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "postagem")
+@Table(name = "tb_postagem")
 public class Postagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idPostagem;
+	private long id;
 
 	@NotNull
 	@Size (min = 5, max = 100)
@@ -49,11 +49,11 @@ public class Postagem {
 	private Usuario criador;
 
 	public long getId() {
-		return idPostagem;
+		return id;
 	}
 
 	public void setId(long id) {
-		this.idPostagem = id;
+		this.id = id;
 	}
 
 	public String getTitulo() {
