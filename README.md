@@ -9,5 +9,7 @@
     Curso em andamento!
 
     Loading........................ 45%
+    
+    [Michelle Bernardo](https://github.com/chellebernardo)
 
 
