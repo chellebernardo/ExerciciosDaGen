@@ -33,7 +33,7 @@ public class UsuarioServices {
 	 */
 
 	public Optional<Object> cadastrarUsuario(Usuario novoUsuario) {
-		Optional<Object> usuarioExistente = repository.findByUsuarioIgnoreCase(novoUsuario.getUsuario());
+		Optional<Usuario> usuarioExistente = repository.findByUsuario(novoUsuario.getUsuario());
 
 		if (usuarioExistente.isPresent()) {
 			return Optional.empty();

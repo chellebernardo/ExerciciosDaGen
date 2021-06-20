@@ -11,7 +11,7 @@ import com.madamechelle.blogPessoal.model.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository <Usuario, Long> {
 
-	Optional <Object> findByUsuarioIgnoreCase(String usuario);
+	Optional <Usuario> findByUsuario(String usuario);
 	
 	List<Usuario> findAllByNomeContainingIgnoreCase (String nome); //Método para fazer uma pesquisa por nome
 }

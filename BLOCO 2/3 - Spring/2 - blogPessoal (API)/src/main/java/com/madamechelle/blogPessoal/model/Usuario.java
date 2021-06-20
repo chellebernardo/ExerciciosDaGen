@@ -40,6 +40,16 @@ public class Usuario {
 	@JsonIgnoreProperties ({"criador"})
 	private List <Postagem> minhasPostagens = new ArrayList<>();
 	
+	public Usuario() {
+
+	}
+	public Usuario(@NotNull(message = "Precisa ter um nome!") String nome,
+			@NotNull(message = "Aqui precisa ter um usuário válido!") @Size(min = 3, max = 15, message = "User entre 3 e 15") String usuario,
+			@NotNull(message = "A senha não pode ser nula, please!") String senha) {
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
 	public Long getId() {
 		return id;
 	}
