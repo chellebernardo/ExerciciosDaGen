@@ -4,8 +4,8 @@
 
 <p>Este repositório é usado para subir todos os exercícios relacionados a Generation Brasil!<p>
 <p>Turma 22 = Família 22.<p>
-<p>Curso em andamento!<p>
-<p>Loaded 100%%<p>
+<p>Curso Concluído com sucesso!<p>
+<p>Loading finished!<p>
 
 
 
