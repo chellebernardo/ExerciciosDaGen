@@ -5,7 +5,7 @@
 <p>Este repositório é usado para subir todos os exercícios relacionados a Generation Brasil!<p>
 <p>Turma 22 = Família 22.<p>
 <p>Curso em andamento!<p>
-<p>Loading........................ 70%<p>
+<p>Loaded 100%%<p>
 
 
 
